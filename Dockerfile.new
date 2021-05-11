@@ -1,0 +1,13 @@
+FROM centos:7
+# RTMP/1935, API/1985, HTTP/8080 SIP/5060
+EXPOSE 1935 1985 8000 8080 5060
+
+# SRS binary, config files and srs-console.
+COPY srs/trunk/objs /usr/local/srs/objs
+# All config files for SRS.
+COPY conf /usr/local/srs/conf
+# Use docker.conf as default config.
+# COPY conf/docker.conf /usr/local/srs/conf/srs.conf
+# Default workdir and command.
+WORKDIR /usr/local/srs
+CMD ["./objs/srs", "-c", "conf/srs.conf"]
